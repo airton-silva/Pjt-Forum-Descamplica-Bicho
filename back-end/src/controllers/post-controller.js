@@ -16,7 +16,8 @@ exports.getByName = async (req, res) => {
 
 exports.post = async (req, res) => {
   res.json(
-    await postService.add(new Product(req.body.title, req.body.body))
+    await postService.add(new Post(req.body.title, req.body.body,
+                                      req.body.created_at, req.body.updated_at))
   );
 };
 
@@ -24,7 +25,7 @@ exports.put = async (req, res) => {
   res.json(
     await postService.update(
       req.params.id,
-      new Product(req.body.title, req.body.body)
+      new Post(req.body.title, req.body.body)
     )
   );
 };

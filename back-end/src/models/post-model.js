@@ -1,10 +1,10 @@
 class Post {
-    constructor( title, body, create_at, update_at) {
+    constructor( title, body, created_at, updated_at) {
      // this.name = name;
       this.title = title;
       this.body = body;
-      this.create_at = create_at;
-      this.update_at = update_at;
+      this.created_at = created_at;
+      this.updated_at = updated_at;
     }
    }
    

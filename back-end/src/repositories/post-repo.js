@@ -2,8 +2,8 @@ const pool = require("../dbs/postgres");
 
 exports.save = async (post) => {
   const result = await pool.query(
-    "INSERT INTO posts(title, body) VALUES ($1,$2) RETURNING *;",
-    [post.tiles, post.body]
+    "INSERT INTO posts(title, body, created_at, updated_at) VALUES ($1,$2, $3, $4) RETURNING *;",
+    [post.tiles, post.body, post.created_at, post.updated_at]
   );
   return result.rows[0];
 };
