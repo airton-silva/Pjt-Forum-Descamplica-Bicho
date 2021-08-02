@@ -13,10 +13,12 @@ app.use(express.static("public"));
 // Routes
 const index = require("./routes/index.js");
 const posts = require("./routes/post-route");
+const users = require("./routes/user-route");
 //const upload = require("./routes/upload-route");
 
 app.use("/", index);
 app.use("/posts", posts);
+app.use("/users", users);
 //app.use("/upload", upload);
 app.use((req, res, next) => {
   res.status(404).send({

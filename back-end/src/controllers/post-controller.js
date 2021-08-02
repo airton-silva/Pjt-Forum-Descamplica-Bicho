@@ -11,7 +11,7 @@ exports.getById = async (req, res) => {
 };
 
 exports.getByName = async (req, res) => {
-  res.json(await postService.getByName(req.query.name));
+  res.json(await postService.getByName(req.query.title));
 };
 
 exports.post = async (req, res) => {
@@ -25,7 +25,8 @@ exports.put = async (req, res) => {
   res.json(
     await postService.update(
       req.params.id,
-      new Post(req.body.title, req.body.body)
+      new Post(req.body.title, req.body.body,
+                  req.body.created_at, req.body.updated_at)
     )
   );
 };

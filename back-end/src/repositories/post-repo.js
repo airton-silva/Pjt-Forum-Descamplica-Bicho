@@ -2,14 +2,14 @@ const pool = require("../dbs/postgres");
 
 exports.save = async (post) => {
   const result = await pool.query(
-    "INSERT INTO posts(title, body, created_at, updated_at) VALUES ($1,$2, $3, $4) RETURNING *;",
-    [post.tiles, post.body, post.created_at, post.updated_at]
+    "INSERT INTO posts(title, body, created_at, updated_at) VALUES ($1,$2,$3,$4) RETURNING *;",
+    [post.title, post.body, post.created_at, post.updated_at]
   );
   return result.rows[0];
 };
 
 exports.findAll = async () => {
-  const result = await pool.query("SELECT * FROM posts;");
+  const result = await pool.query("SELECT * FROM posts ORDER BY id;");
   return result.rows;
 };
 
@@ -27,8 +27,8 @@ exports.findByName = async (title) => {
 
 exports.update = async (id, post) => {
   const result = await pool.query(
-    "UPDATE posts SET title=$1, body=$2 WHERE id=$3 RETURNING *;",
-    [post.title, post.body, id]
+    "UPDATE posts SET title=$1, body=$2, created_at=$3, updated_at=$4 WHERE id=$5 RETURNING *;",
+    [post.title, post.body, post.created_at, post.updated_at, id]
   );
   return result.rows[0];
 };
