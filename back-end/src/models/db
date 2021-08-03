@@ -1,0 +1,36 @@
+CREATE TABLE public.users
+(
+  id bigint NOT NULL DEFAULT nextval('users_id_seq'::regclass),
+  name text,
+  email text,
+  password text,
+  created_at timestamp with time zone,
+  updated_at timestamp with time zone,
+  CONSTRAINT users_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.users
+  OWNER TO postgres;
+
+
+--posts
+CREATE TABLE public.posts
+(
+  id bigint NOT NULL DEFAULT nextval('posts_id_seq'::regclass),
+  user_id bigint NOT NULL,
+  title text,
+  body text,
+  created_at timestamp with time zone,
+  updated_at timestamp with time zone,
+  CONSTRAINT posts_pkey PRIMARY KEY (id),
+  CONSTRAINT users_fkey FOREIGN KEY ("userId")
+      REFERENCES public.users (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.posts
+  OWNER TO postgres;

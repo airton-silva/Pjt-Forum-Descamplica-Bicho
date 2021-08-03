@@ -17,7 +17,9 @@ exports.getByName = async (req, res) => {
 exports.post = async (req, res) => {
   res.json(
     await postService.add(new Post(req.body.title, req.body.body,
-                                      req.body.created_at, req.body.updated_at))
+                                      req.body.created_at, req.body.updated_at,
+                                       req.body.user_id
+                                  ))
   );
 };
 
