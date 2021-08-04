@@ -9,7 +9,9 @@ exports.save = async (post) => {
 };
 
 exports.findAll = async () => {
-  const result = await pool.query("SELECT * FROM posts ORDER BY id;");
+  const result = await pool.query("SELECT users.name, users.email, posts.created_at,"
+                                  + " posts.updated_at, posts.body, posts.title "+
+                                  "FROM users, posts WHERE posts.user_id = users.id ORDER BY users.id;");
   return result.rows;
 };
 
