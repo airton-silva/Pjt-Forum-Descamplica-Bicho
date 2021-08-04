@@ -9,7 +9,7 @@ exports.save = async (post) => {
 };
 
 exports.findAll = async () => {
-  const result = await pool.query("SELECT users.name, users.email, posts.created_at,"
+  const result = await pool.query("SELECT users.id, users.name, users.email, posts.created_at,"
                                   + " posts.updated_at, posts.body, posts.title "+
                                   "FROM users, posts WHERE posts.user_id = users.id ORDER BY users.id;");
   return result.rows;
@@ -21,7 +21,9 @@ exports.findOne = async (id) => {
 };
 
 exports.findByName = async (title) => {
-  const result = await pool.query("SELECT * FROM posts WHERE title=$1;", [
+  const result = await pool.query("SELECT users.id, users.name, users.email, posts.created_at,"
+  + " posts.updated_at, posts.body, posts.title "+
+  "FROM users, posts WHERE posts.user_id = users.id AND posts.title=$1 ORDER BY users.id;", [
     title,
   ]);
   return result.rows;

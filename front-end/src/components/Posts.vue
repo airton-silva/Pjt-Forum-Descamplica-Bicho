@@ -15,8 +15,9 @@
 
             <div class="card-header">
                 <div>
-                    <div class="topnav">
-                        <div class="col-md-4">
+                    <div class=" row topnav">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4"> 
                             <div class="dropdown show">
                                 <a class=" dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                   Categorias
@@ -28,11 +29,11 @@
                                   <a class="dropdown-item" href="#">Geral</a>
                                 </div>
                               </div>
-                        </div>
-                        <div class="search-container">
+                        </div><br>
+                        <div class="col-md-6  search-container">
                           <form >
-                            <input type="text" placeholder="Search.." name="search">
-                            <button type="submit"><i class="fa fa-search"></i></button>
+                            <input type="text" placeholder="Search.." name="search" v-model="search">
+                            <button type="submit" @click.prevent="getPostByTitle ()"><i class="fa fa-search"></i></button>
                           </form>
                         </div>
 
@@ -53,6 +54,7 @@
                         <div class="col-md-6 offset-md-2">
                             <h3> {{post.title}}</h3>
                             <p>{{post.body}}</p>
+                            
                         </div>
                         <div class="col-md-2 offset-md-1">
                             <a href="#" class="text-success">
@@ -62,10 +64,16 @@
                         </div>
 
                         <br>                        
-                        <div class="col-md-3">{{post.email}}</div>
-                        <div class="col-md-2 offset-md-1"> Em: {{ post.created}} </div>
-                        <div class="col-md-3">Atualizado em: {{post.updated}}</div>
-                        <div class="col-md-1 offset-md-1"><a href="show.html" class="btn btn-info btn-sm">Detalhes</a></div>
+                        <div class="col-md-3">
+                          <span><strong>Email:</strong>
+                          <br>
+                          </span>{{post.email}}</div>
+                        <div class="col-md-2 offset-md-1" > Em:{{ post.created_at}} </div>
+                        <div class="col-md-3">Atualizado em: {{post.updated_at}}</div>
+                        <div class="col-md-1 offset-md-1">
+                          <!-- <a :href="'/detail-post/'+post.id" class="btn btn-info btn-sm">Detalhes</a> -->
+                          <router-link :to="/detail-post/+post.id" class="btn btn-info btn-sm">Detalhes</router-link>
+                        </div>
                         <hr>
                     </div><hr>
 
@@ -95,13 +103,22 @@ export default {
   },
 
   created(){
-    this.getAllPosts()
+    this.getAllPosts()    
   },
   
   data () {
     return {
       uriBase : 'http://localhost:3000/posts/',
       posts: [],
+      search: null,
+      post: {
+        id : null,
+        title: '',
+        body: '',
+        created:'',
+        updated:''
+
+      }
 
     } 
   },
@@ -112,11 +129,25 @@ export default {
             .then(result =>{
                 this.posts = result.data
                 
-            })
-            console.log(this.posts)
-            
+            })           
  
       },
+
+      getPostByTitle (){
+        //alert(this.search)
+        if(this.search == null){
+         // alert('entrou')
+          this.created()
+        }
+        axios.get(this.uriBase + "search?title=" + this.search)
+          .then((result) =>{
+            this.posts = result.data
+        })
+      },
+
+      formData(data){
+        return data.moment(data, 'YYYY-MM-DD').format('DD-MM_YYYY')
+      }
 
   },
 }
