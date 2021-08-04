@@ -7,7 +7,7 @@
 import Detail from '@/components/DetailPost.vue'
 
 export default {
-  name: 'Detail',
+  name: 'detail',
   components: {
     Detail
   }

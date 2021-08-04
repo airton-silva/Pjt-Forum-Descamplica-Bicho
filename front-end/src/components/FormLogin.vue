@@ -1,5 +1,5 @@
 <template>
-    <h1>{{msg}}</h1>
+    <!-- <h1>{{msg}}</h1> -->
        <!-- login -->
     <div class="d-flex justify-content-center h-100 my-5">
       <div class="user_card">

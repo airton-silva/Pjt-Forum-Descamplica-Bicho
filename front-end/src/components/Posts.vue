@@ -4,9 +4,13 @@
   
   <div class="container" style="margin-top:50px">
     <div class="row">
-        <header class="col-md-12">
-          <div class="forum-header-top">
+        <header class="row col-12">
+          <div class="col-md-6 forum-header-top">
                 <h2><i class="fas fa-comments"></i> Fórum</h2>
+          </div> 
+          <div class="col forum-header-top offset-md-3">
+              <button class="btn btn-info "><i class="fas fa-plus"></i>  Criar Post </button>
+                <!-- <h2><i class="fas fa-comments"></i> Fórum</h2> -->
           </div>
 
         </header><br><br>
@@ -51,17 +55,17 @@
                             </a>    
                         </div>
 
-                        <div class="col-md-6 offset-md-2">
+                        <div class="col-md-8 offset-md-2">
                             <h3> {{post.title}}</h3>
                             <p>{{post.body}}</p>
                             
                         </div>
-                        <div class="col-md-2 offset-md-1">
+                        <!-- <div class="col-md-2 offset-md-1">
                             <a href="#" class="text-success">
                                  <h4 class="text-center text-success"><i class="fas fa-check"></i>4</h4>
                                 <p class="text-center text-success"> Respostas </p>
                             </a>
-                        </div>
+                        </div> -->
 
                         <br>                        
                         <div class="col-md-3">
@@ -70,9 +74,13 @@
                           </span>{{post.email}}</div>
                         <div class="col-md-2 offset-md-1" > Em:{{ post.created_at}} </div>
                         <div class="col-md-3">Atualizado em: {{post.updated_at}}</div>
-                        <div class="col-md-1 offset-md-1">
+                        <div class="col-md-2">
+                            <a href="#" class="text-success">
+                                 <h4 class="text-center text-success"><i class="fas fa-check"></i>4</h4>
+                                <p class="text-center text-success"> Respostas </p>
+                            </a>
                           <!-- <a :href="'/detail-post/'+post.id" class="btn btn-info btn-sm">Detalhes</a> -->
-                          <router-link :to="/detail-post/+post.id" class="btn btn-info btn-sm">Detalhes</router-link>
+                          <router-link :to="'/detail-post/'+post.id" class="btn btn-info btn-sm">Detalhes</router-link>
                         </div>
                         <hr>
                     </div><hr>
@@ -134,9 +142,8 @@ export default {
       },
 
       getPostByTitle (){
-        //alert(this.search)
+        
         if(this.search == null){
-         // alert('entrou')
           this.created()
         }
         axios.get(this.uriBase + "search?title=" + this.search)

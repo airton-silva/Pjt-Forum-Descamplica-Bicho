@@ -1,22 +1,23 @@
 <template>
-    <H1>Tests</H1>
+    <div class="alert alert-info">JHjghjgjg</div>
 </template>
 
 <script>
 
 export default {
   name: 'DetailPost',
+  //props:['identify'],
   props: {
-    msg : String
-  },
-
-  created(){
-      console.log(this.msg)
+      identify:{
+          type:String,
+          default:null
+      }
   },
 
   data() {
       return {
-        id: '',
+        id: this.identify,
+
       };
   },
 
