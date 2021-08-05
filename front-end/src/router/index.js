@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import DetailPost from '../views/Detail.vue'
 import FormUser from '../views/FormUser.vue'
+import FormPost from '../views/FormPost.vue'
 
 
 
@@ -31,6 +32,12 @@ const routes = [
     path:'/form-user',
     name:'formUser',
     component: FormUser,
+    props:true
+  },
+  {
+    path:'/formPost',
+    name:'formPost',
+    component: FormPost,
     props:true
   },
 

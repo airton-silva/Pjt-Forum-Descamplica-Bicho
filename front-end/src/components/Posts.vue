@@ -9,7 +9,8 @@
                 <h2><i class="fas fa-comments"></i> Fórum</h2>
           </div> 
           <div class="col forum-header-top offset-md-3">
-              <button class="btn btn-info "><i class="fas fa-plus"></i>  Criar Post </button>
+              <!-- <button class="btn btn-info "><i class="fas fa-plus"></i>  Criar Post </button> -->
+              <!-- <router-link class="btn btn-info "> Criar Post</router-link> -->
                 <!-- <h2><i class="fas fa-comments"></i> Fórum</h2> -->
           </div>
 
@@ -80,7 +81,7 @@
                                 <p class="text-center text-success"> Respostas </p>
                             </a>
                           <!-- <a :href="'/detail-post/'+post.id" class="btn btn-info btn-sm">Detalhes</a> -->
-                          <router-link :to="'/detail-post/'+post.id" class="btn btn-info btn-sm">Detalhes</router-link>
+                          <!-- <router-link :to="'/detail-post/'+post.id" class="btn btn-info btn-sm">Detalhes</router-link> -->
                         </div>
                         <hr>
                     </div><hr>

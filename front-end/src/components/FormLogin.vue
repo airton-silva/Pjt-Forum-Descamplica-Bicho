@@ -2,9 +2,21 @@
     <!-- <h1>{{msg}}</h1> -->
        <!-- login -->
     <div class="d-flex justify-content-center h-100 my-5">
+
+
       <div class="user_card">
         <div class="d-flex justify-content-center">
           <div class="brand_logo_container">
+            <div class="d-flex justify-content-center">
+              <div class="brand_logo_container">
+                  <p v-if="errors.length">
+                    <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
+                    <ul class="alert alert-warning">
+                      <li v-for="error in errors" :key="error.id">{{ error }}</li>
+                    </ul>
+                  </p>
+              </div>
+            </div>
             
           </div>
         </div>
@@ -14,7 +26,7 @@
               <div class="input-group-append">
                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
               </div>
-              <input type="text"  class="form-control input_user" v-model="user.email" placeholder="E-mail">
+              <input type="email"  class="form-control input_user" v-model="user.email" placeholder="E-mail">
             </div>
             <div class="input-group mb-2">
               <div class="input-group-append">
@@ -23,7 +35,7 @@
               <input type="password" class="form-control input_pass" v-model="user.password" placeholder="Senha">
             </div>
               <div class="d-flex justify-content-center mt-3 login_container">
-          <button type="button" name="button" class="btn login_btn">Entrar</button>
+          <button type="button" name="button" class="btn login_btn" @click="login ()">Entrar</button>
            </div>
           </form>
         </div>
@@ -40,6 +52,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'FormLogin',
   props: {
@@ -47,29 +61,83 @@ export default {
   },
   data() {
     return {
-      uriBase : 'http://127.0.0.1:3000/users/',
+      uriBase : 'http://127.0.0.1:3000/auth/',
       errors: [],
       user: {
         email: '',  
         password: '',
-      }
+      },
+      dadoU: '',
+      
     }
   },
+
+
 
   methods: {
 
       login (){
-        
-        // if(this.search == null){
-        //   this.created()
-        // }
-        axios.get(this.uriBase + "search?title=" + this.search)
+        axios.get(this.uriBase + "auth?email=" + this.user.email+ "&password="+ this.user.password)
           .then((result) =>{
-            this.posts = result.data
+            this.user = result.data
+            console.log (result.data) 
+            this.checkValidate()
+            this.redirectRouter() 
+            //this.dadoU = this.dadosUser = JSON.parse(localStorage.getItem('dadosUserApp'))         
+            //this.user = JSON.parse(localStorage.getItem('userApp'));
         })
       },
 
-  }
+      redirectRouter (){
+        if(this.user.id > 0){
+          return this.$router.replace("/") 
+        }else{
+          alert("usuario ou senha inválidos")
+        }
+      },
+
+      checkValidate(e){
+        this.errors = [];
+          
+            if (!this.user.email) {
+              this.errors.push('O email é obrigatório.');
+            }
+            if (!this.user.password) {
+              this.errors.push(' O campo senha é obrigatório.');
+            }
+
+            if (!this.errors.length) {
+              
+              return true;
+            }
+            e.preventDefault();
+        
+      },
+                 
+
+    saveUser(user){
+          let dadosUser = localStorage.getItem('dadosUserApp');
+
+          if(dadosUser) {
+
+              dadosUser= JSON.parse(dadosUser);
+              dadosUser.push(user);
+
+          }else {
+              dadosUser = [user]
+          }
+
+          localStorage.setItem('dadosUserApp', JSON.stringify(dadosUser))
+      },
+      
+  },
+
+  created() {
+      this.dadosUser = JSON.parse(localStorage.getItem('dadosUserApp'));
+      
+  },
+
+
 
 }
 </script>
