@@ -24,6 +24,11 @@ class UserService {
   delete(id) {
     return userRepo.delete(id);
   }
+
+  getAuth(email, password){
+    return userRepo.findAuth(email, password);
+  }
+
 }
 
 module.exports = UserService;

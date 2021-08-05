@@ -35,4 +35,10 @@ exports.update = async (id, user) => {
 
 exports.delete = async (id) => {
   await pool.query("DELETE FROM users WHERE id=$1;", [id]);
+
 };
+
+// exports.findAuth = async (email, password) => {
+//   const result = await pool.query("SELECT * FROM users WHERE email=$1 OR senha=$2;", [email, password]);
+//   return result.rows[0];
+// };

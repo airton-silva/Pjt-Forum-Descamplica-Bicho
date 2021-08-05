@@ -14,13 +14,13 @@
               <div class="input-group-append">
                 <span class="input-group-text"><i class="fas fa-envelope"></i></span>
               </div>
-              <input type="text" name="" class="form-control input_user" value="" placeholder="E-mail">
+              <input type="text"  class="form-control input_user" v-model="user.email" placeholder="E-mail">
             </div>
             <div class="input-group mb-2">
               <div class="input-group-append">
                 <span class="input-group-text"><i class="fas fa-key"></i></span>
               </div>
-              <input type="password" name="" class="form-control input_pass" value="" placeholder="Senha">
+              <input type="password" class="form-control input_pass" v-model="user.password" placeholder="Senha">
             </div>
               <div class="d-flex justify-content-center mt-3 login_container">
           <button type="button" name="button" class="btn login_btn">Entrar</button>
@@ -30,7 +30,7 @@
     
         <div class="mt-4">
           <div class="d-flex justify-content-center links">
-            Não tem uma conta?  <a href="http://">Cadastre-se</a>
+            Não tem uma conta?  <router-link to="/form-user">Cadastre-se</router-link>
             
           </div>
         </div>
@@ -44,6 +44,32 @@ export default {
   name: 'FormLogin',
   props: {
     msg: String
+  },
+  data() {
+    return {
+      uriBase : 'http://127.0.0.1:3000/users/',
+      errors: [],
+      user: {
+        email: '',  
+        password: '',
+      }
+    }
+  },
+
+  methods: {
+
+      login (){
+        
+        // if(this.search == null){
+        //   this.created()
+        // }
+        axios.get(this.uriBase + "search?title=" + this.search)
+          .then((result) =>{
+            this.posts = result.data
+        })
+      },
+
   }
+
 }
 </script>

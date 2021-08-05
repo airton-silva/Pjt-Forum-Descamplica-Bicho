@@ -69,8 +69,6 @@ export default {
   data() {
     return {
       uriBase : 'http://127.0.0.1:3000/users/',
-      isOpen: false,
-      operacao: '',
       errors: [],
       user: {
         id: null,
