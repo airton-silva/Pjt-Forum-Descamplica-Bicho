@@ -3,7 +3,7 @@ const router = express.Router();
 
 const controller = require("../controllers/auth-controller");
 
-router.get("/", controller.getAuth);
+router.get("/:auth", controller.getAuth);
 // router.get("/search", controller.getByName);
 // router.get("/:id", controller.getById);
 // router.post("/", controller.post);
