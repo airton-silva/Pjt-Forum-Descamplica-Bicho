@@ -44,7 +44,7 @@
               <div class="d-flex justify-content-center mt-3 login_container">
           <button type="button" name="button" class="btn login_btn" @click.prevent=" salvar()">Salvar</button>
            </div>
-          </form>
+        </form>
         </div>
     
         <div class="mt-4">
