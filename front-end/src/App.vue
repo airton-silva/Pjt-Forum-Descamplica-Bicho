@@ -13,7 +13,7 @@
                 </form> -->
                 <ul class="navbar-nav mr-auto order-1">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" href="/formPost" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" href="/post" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Post
                     </a>
                     <!-- <router-link class="nav-link dropdown-toggle" to="/formPost"> Criar Post</router-link> -->
@@ -45,11 +45,7 @@
             </div>
         </div>
     </nav>
-  <!-- <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/login">Login</router-link> |
-    <router-link to="/form-user">Cad User</router-link>
-  </div> -->
+
    <router-view/>
 </template>
 

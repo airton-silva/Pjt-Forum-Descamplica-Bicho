@@ -8,7 +8,7 @@
 import FormPost from '@/components/FormPost.vue'
 
 export default {
-  name: 'formPost',
+  name: 'Post',
   components: {
     FormPost
   }

@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import DetailPost from '../views/Detail.vue'
-import FormUser from '../views/FormUser.vue'
-import FormPost from '../views/FormPost.vue'
+import User from '../views/User.vue'
+import Post from '../views/Post.vue'
 
 
 
@@ -12,17 +12,16 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    children: [
-      {
-        path:'/detail-post/:identify',
-        name:'detail',
-        component: DetailPost,
-        props:true
-      },
-    
-    ]
     
   },
+
+  {
+    path:'/detail-post/:identify',
+    name:'detail',
+    component: DetailPost,
+    props:true
+  },
+
   {
     path: '/login',
     name: 'Login',
@@ -30,14 +29,14 @@ const routes = [
   },
   {
     path:'/form-user',
-    name:'formUser',
-    component: FormUser,
+    name:'User',
+    component: User,
     props:true
   },
   {
-    path:'/formPost',
-    name:'formPost',
-    component: FormPost,
+    path:'/post',
+    name:'Post',
+    component: Post,
     props:true
   },
 

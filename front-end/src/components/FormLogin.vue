@@ -77,13 +77,11 @@ export default {
   methods: {
 
       login (){
+        this.checkValidate()
         axios.get(this.uriBase + "auth?email=" + this.user.email+ "&password="+ this.user.password)
           .then((result) =>{
-            this.user = result.data
-            console.log (result.data) 
-            this.checkValidate()
-            this.redirectRouter() 
-            //this.dadoU = this.dadosUser = JSON.parse(localStorage.getItem('dadosUserApp'))         
+            this.user = result.data           
+            this.redirectRouter()         
             //this.user = JSON.parse(localStorage.getItem('userApp'));
         })
       },

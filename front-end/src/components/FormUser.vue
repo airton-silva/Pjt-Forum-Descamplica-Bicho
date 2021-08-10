@@ -97,14 +97,13 @@ export default {
 
         axios.post(this.uriBase, parametros)
         .then(response =>{
-            this.user= response.data            
+            this.user= response.data  
+            this.limparCampos()          
         }).then(
           alert("Usuario cadastrado com sucesso")
+          
         );        
-          this.user.name =''; 
-          this.user.email ='';
-          this.user.password ='';
-          this.user.Rpassword ='';
+
           
       },  
 
@@ -146,7 +145,16 @@ export default {
             }
             e.preventDefault();
         
+      }, 
+
+      limparCampos(){
+          this.user.name =''; 
+          this.user.email ='';
+          this.user.password ='';
+          this.user.Rpassword ='';
       }
+
+
 
   }
 

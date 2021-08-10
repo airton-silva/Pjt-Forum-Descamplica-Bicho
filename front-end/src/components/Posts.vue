@@ -48,7 +48,7 @@
             <div class="card-body">
                 <article class="forum-index-articles" v-for="post in posts" :key="post.id">
                     <br>
-                    <div class="row">
+                    <div class="row" v-if="post">
                       
                         <div class="col-md-1">
                             <a href="#  " title="Link do GitHub" class="forum-index-article-top">
@@ -56,32 +56,33 @@
                             </a>    
                         </div>
 
-                        <div class="col-md-8 offset-md-2">
-                            <h3> {{post.title}}</h3>
+                        <div class="col-md-6 offset-md-2">
+                            <h4> {{post.resumo}}</h4>
                             <p>{{post.body}}</p>
                             
                         </div>
-                        <!-- <div class="col-md-2 offset-md-1">
+                        <div class="col-md-2 offset-md-1">
                             <a href="#" class="text-success">
                                  <h4 class="text-center text-success"><i class="fas fa-check"></i>4</h4>
                                 <p class="text-center text-success"> Respostas </p>
                             </a>
-                        </div> -->
+                        </div>
 
                         <br>                        
                         <div class="col-md-3">
                           <span><strong>Email:</strong>
                           <br>
                           </span>{{post.email}}</div>
-                        <div class="col-md-2 offset-md-1" > Em:{{ post.created_at}} </div>
+                        <div class="col-md-3 offset-md-1" > 
+                          <span><strong>Criado Em:</strong></span>{{ post.created_at }} 
+                        </div>
                         <div class="col-md-3">Atualizado em: {{post.updated_at}}</div>
-                        <div class="col-md-2">
-                            <a href="#" class="text-success">
+                        <div class="col-md-2 ">
+                            <!-- <a href="#" class="text-success">
                                  <h4 class="text-center text-success"><i class="fas fa-check"></i>4</h4>
                                 <p class="text-center text-success"> Respostas </p>
-                            </a>
-                          <!-- <a :href="'/detail-post/'+post.id" class="btn btn-info btn-sm">Detalhes</a> -->
-                          <!-- <router-link :to="'/detail-post/'+post.id" class="btn btn-info btn-sm">Detalhes</router-link> -->
+                            </a> -->
+                          <router-link :to="'/detail-post/'+post.id" class="btn btn-info btn-sm">Detalhes</router-link>
                         </div>
                         <hr>
                     </div><hr>
@@ -137,7 +138,7 @@ export default {
           axios.get(this.uriBase)
             .then(result =>{
                 this.posts = result.data
-                
+                console.log(this.posts)
             })           
  
       },
@@ -153,9 +154,17 @@ export default {
         })
       },
 
+      getId(post){
+        alert(post.id)
+        return post.id
+        
+      },
+
       formData(data){
-        return data.moment(data, 'YYYY-MM-DD').format('DD-MM_YYYY')
+        return data.moment(data, 'YYYY-MM-DD').format('DD-MM-YYYY')
       }
+
+
 
   },
 }
