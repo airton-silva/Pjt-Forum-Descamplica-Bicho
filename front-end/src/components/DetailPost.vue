@@ -7,6 +7,7 @@
               <h3 class="text-left">Titulo do Post : <span>{{ post.title }}</span> </h3>
           </div>
           <div class="card-body">
+            <p>{{post.resume}}</p>
             <p>{{ post.body}}</p>
             <div class="row">
               <div class="col-md-4">

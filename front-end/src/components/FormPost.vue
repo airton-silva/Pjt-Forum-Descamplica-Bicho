@@ -10,19 +10,19 @@
                 </div>
             </div>
             <div class="col-md-6 offset-3">
-                <div class="input-group mb-3">
+                <div class="input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Resumo</span>
+                        <span class="input-group-text">Resumo</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Resumo" v-model="post.resumo">
+                    <textarea class="form-control" rows="3" aria-label="With textarea" v-model="post.resumo"></textarea>
                 </div>
-            </div>
+            </div><br>
             <div class="col-md-6 offset-3">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Conteúdo</span>
                     </div>
-                    <textarea class="form-control" rows="3" aria-label="With textarea" v-model="post.body"></textarea>
+                    <textarea class="form-control" rows="5" aria-label="With textarea" v-model="post.body"></textarea>
                 </div>
             </div><br>
             <div class="col-md-6 offset-3">

@@ -57,8 +57,8 @@
                         </div>
 
                         <div class="col-md-6 offset-md-2">
-                            <h4> {{post.resumo}}</h4>
-                            <p>{{post.body}}</p>
+                            <h4> {{post.title}}</h4>
+                            <p>{{post.resumo}}</p>
                             
                         </div>
                         <div class="col-md-2 offset-md-1">
@@ -76,7 +76,7 @@
                         <div class="col-md-3 offset-md-1" > 
                           <span><strong>Criado Em:</strong></span>{{ post.created_at }} 
                         </div>
-                        <div class="col-md-3">Atualizado em: {{post.updated_at}}</div>
+                        <div class="col-md-3"><strong>Atualizado em:</strong>  {{post.updated_at}}</div>
                         <div class="col-md-2 ">
                             <!-- <a href="#" class="text-success">
                                  <h4 class="text-center text-success"><i class="fas fa-check"></i>4</h4>
@@ -125,6 +125,7 @@ export default {
         id : null,
         title: '',
         body: '',
+        resume:'',
         created:'',
         updated:''
 

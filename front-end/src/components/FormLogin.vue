@@ -64,10 +64,11 @@ export default {
       uriBase : 'http://127.0.0.1:3000/auth/',
       errors: [],
       user: {
+        id:'',
         email: '',  
         password: '',
       },
-      dadoU: '',
+      //dadosUser: '',
       
     }
   },
@@ -80,7 +81,8 @@ export default {
         this.checkValidate()
         axios.get(this.uriBase + "auth?email=" + this.user.email+ "&password="+ this.user.password)
           .then((result) =>{
-            this.user = result.data           
+            this.user = result.data  
+            this.saveUser(this.user)         
             this.redirectRouter()         
             //this.user = JSON.parse(localStorage.getItem('userApp'));
         })
@@ -115,26 +117,12 @@ export default {
 
     saveUser(user){
           let dadosUser = localStorage.getItem('dadosUserApp');
-
-          if(dadosUser) {
-
-              dadosUser= JSON.parse(dadosUser);
-              dadosUser.push(user);
-
-          }else {
-              dadosUser = [user]
-          }
+          dadosUser = user
 
           localStorage.setItem('dadosUserApp', JSON.stringify(dadosUser))
       },
       
   },
-
-  created() {
-      this.dadosUser = JSON.parse(localStorage.getItem('dadosUserApp'));
-      
-  },
-
 
 
 }
