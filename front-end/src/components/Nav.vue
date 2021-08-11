@@ -65,8 +65,7 @@ export default {
     },
 
     created(){
-            this.getUserLogado()
-            //this.logoutUser()
+        this.getUserLogado()           
 
     },
 
@@ -78,9 +77,9 @@ export default {
         },
         logoutUser(){
             localStorage.removeItem('dadosUserApp');
-            // this.user.email = '';
-            // this.user.name = '';
-            // this.user.id = null
+            this.user.email = '';
+            this.user.name = '';
+            this.user.id = null
             return this.$router.replace("/login") 
         }
     },

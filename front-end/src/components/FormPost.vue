@@ -62,7 +62,7 @@ export default {
         id: null,
         title: '',
         body: '',
-        userId: '', 
+        userId:'', 
         resumo:'',
         created_at: ''
 
