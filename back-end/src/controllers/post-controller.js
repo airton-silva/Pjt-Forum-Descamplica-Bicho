@@ -18,7 +18,7 @@ exports.post = async (req, res) => {
   res.json(
     await postService.add(new Post(req.body.title, req.body.body,
                                       req.body.created_at, req.body.updated_at,
-                                      req.body.user_id, req.body.resumo, 
+                                      req.body.image, req.body.user_id, req.body.resumo, 
                                   ))
   );
 };
@@ -28,7 +28,7 @@ exports.put = async (req, res) => {
     await postService.update(
       req.params.id,
       new Post(req.body.title, req.body.body,
-                  req.body.created_at, req.body.updated_at, req.body.resumo)
+                  req.body.created_at, req.body.updated_at, req.body.image, req.body.resumo)
     )
   );
 };

@@ -64,10 +64,10 @@ export default {
         };
     },
 
-    // created(){
-    //     this.getUserLogado()           
+    created(){
+        this.getUserLogado()           
 
-    // },
+    },
 
 
     methods: {
