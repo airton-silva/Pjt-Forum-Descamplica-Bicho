@@ -1,4 +1,4 @@
-const Post = require("../models/user-model");
+const User = require("../models/user-model");
 const UserService = require("../services/user-service");
 var userService = new UserService();
 
@@ -16,7 +16,7 @@ exports.getByName = async (req, res) => {
 
 exports.post = async (req, res) => {
   res.json(
-    await userService.add(new Post(req.body.name, 
+    await userService.add(new User(req.body.name, 
                                     req.body.email,
                                     req.body.password,
                                     req.body.created_at, 
@@ -29,7 +29,7 @@ exports.put = async (req, res) => {
   res.json(
     await userService.update(
       req.params.id,
-      new Post(req.body.name, 
+      new User(req.body.name, 
                 req.body.email,
                 req.body.password,
                 req.body.created_at, 

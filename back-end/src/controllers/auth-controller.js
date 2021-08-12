@@ -3,5 +3,6 @@ const AuthService = require("../services/auth-service");
 var authService = new AuthService();
 
 exports.getAuth = async (req, res) => {
-    res.json(await authService.getAuth(req.query.email, req.query.password));
-};
+    res.json(
+      await authService.getAuth(req.body.email, req.body.password));
+  };
