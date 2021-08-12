@@ -79,14 +79,20 @@ export default {
 
       login (){
         this.checkValidate()
-        axios.get(this.uriBase + "auth?email=" + this.user.email+ "&password="+ this.user.password)
+          let parametros = { 
+            email: this.user.email,
+            password: this.user.password,          
+          }
+
+        axios.post(this.uriBase, parametros)
           .then((result) =>{
             this.user = result.data  
             this.saveUser(this.user)         
             this.redirectRouter()         
-            //this.user = JSON.parse(localStorage.getItem('userApp'));
-        })
+
+          })
       },
+
 
       redirectRouter (){
         if(this.user.id > 0){
