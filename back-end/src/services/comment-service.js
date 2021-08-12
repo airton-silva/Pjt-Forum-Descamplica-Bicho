@@ -13,6 +13,10 @@ class CommentService {
     return commentRepo.findOne(id);
   }
 
+  getByIdPost(id) {
+    return commentRepo.findByIdPost(id);
+  }
+
   getByName(name) {
     return commentRepo.findByName(name);
   }

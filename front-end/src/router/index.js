@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import DetailPost from '../views/Detail.vue'
 import User from '../views/User.vue'
 import Post from '../views/Post.vue'
+import Comments from '../components/Comments.vue'
 
 
 
@@ -19,6 +20,12 @@ const routes = [
     path:'/detail-post/:identify',
     name:'detail',
     component: DetailPost,
+    props:true
+  },
+  {
+    path:'/comments/:identify',
+    name:'comments',
+    component: Comments,
     props:true
   },
 

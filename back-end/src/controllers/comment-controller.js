@@ -10,6 +10,10 @@ exports.getById = async (req, res) => {
   res.json(await commentService.getById(req.params.id));
 };
 
+exports.getByIdPost = async (req, res) => {
+  res.json(await commentService.getByIdPost(req.params.id));
+};
+
 exports.getByName = async (req, res) => {
   res.json(await commentService.getByName(req.query.name));
 };

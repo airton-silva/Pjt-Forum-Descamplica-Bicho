@@ -18,6 +18,20 @@ exports.findOne = async (id) => {
   return result.rows[0];
 };
 
+exports.findByIdPost = async (id) => {
+  const result = await pool.query("SELECT comments.id, comments.name, "+
+                                          "comments.body, comments.post_id, comments.created_at,"+ 
+                                          "comments.updated_at, users.id, users.name, "+
+                                          "users.email, users.image, posts.id, comments.user_id "+
+                                    "FROM public.comments, public.users, public.posts "+
+                                    "WHERE "+
+                                          "comments.user_id = users.id AND "+
+                                          "posts.id = comments.post_id AND "+
+                                          "comments.post_id = $1;", [id]
+                                  );
+  return result.rows;
+};
+
 exports.findByName = async (name) => {
   const result = await pool.query("SELECT * FROM comments WHERE name=$1;", [
     name,
