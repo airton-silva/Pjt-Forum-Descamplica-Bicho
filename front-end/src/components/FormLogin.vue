@@ -96,7 +96,7 @@ export default {
 
       redirectRouter (){
         if(this.user.id > 0){
-          return this.$router.replace("/") 
+          return this.$router.replace("/posts") 
         }else{
           alert("usuario ou senha inválidos")
         }

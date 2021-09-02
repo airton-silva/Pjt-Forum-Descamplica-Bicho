@@ -1,17 +1,16 @@
 <template>
-    <!-- <h1>Home</h1> -->
-    <Posts />
+
+    <ListPosts />
 
 </template>
 
 <script>
-import Posts from '@/components/Posts.vue'
-// import FormPost from '@/components/FormPost.vue'
+import ListPosts from '@/components/ListPosts.vue'
 
 export default {
   name: 'Home',
   components: {
-    Posts
+    ListPosts
 
   },  
 }

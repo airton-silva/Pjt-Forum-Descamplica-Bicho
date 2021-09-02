@@ -32,6 +32,15 @@ exports.findByIdPost = async (id) => {
   return result.rows;
 };
 
+//select count(id) from comments where post_id = 23; getContCommentByIdPost
+exports.getContCommentByIdPost = async (post_id) => {
+  const result = await pool.query("SELECT count(id) FROM comments WHERE post_id =$1", [
+    post_id,
+  ]);
+  console.log(result.rows[0])
+  return result.rows[0];
+};
+
 exports.findByName = async (name) => {
   const result = await pool.query("SELECT * FROM comments WHERE name=$1;", [
     name,

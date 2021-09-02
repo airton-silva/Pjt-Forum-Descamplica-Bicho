@@ -15,20 +15,26 @@ exports.getByName = async (req, res) => {
 };
 
 exports.post = async (req, res) => {
+  let obj = JSON.parse(req.body.post)
+  console.log(obj)
+  console.log(req.file)
   res.json(
-    await postService.add(new Post(req.body.title, req.body.body,
-                                      req.body.created_at, req.body.updated_at,
-                                      req.body.image, req.body.user_id, req.body.resumo, 
+    await postService.add(new Post(obj.title, obj.body,
+                                      obj.created_at, obj.updated_at,
+                                      req.file.path, obj.user_id, obj.resumo, 
                                   ))
   );
 };
 
 exports.put = async (req, res) => {
+  let obj = JSON.parse(req.body.post)
+  console.log(obj)
+  console.log(req.file)
   res.json(
     await postService.update(
       req.params.id,
-      new Post(req.body.title, req.body.body,
-                  req.body.created_at, req.body.updated_at, req.body.image, req.body.resumo)
+      new Post(obj.title, obj.body,req.file.path, 
+        obj.user_id, obj.resumo)
     )
   );
 };

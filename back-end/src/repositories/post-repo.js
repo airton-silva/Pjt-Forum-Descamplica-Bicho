@@ -31,9 +31,10 @@ exports.findByName = async (title) => {
 };
 
 exports.update = async (id, post) => {
+  console.log(post)
   const result = await pool.query(
-    "UPDATE posts SET title=$1, body=$2, created_at=$3, updated_at=$4, image=$5, resumo=$6 WHERE id=$7 RETURNING *;",
-    [post.title, post.body, post.created_at, post.updated_at, post.resumo,id]
+    "UPDATE posts SET title=$1, body=$2, image=$4, resumo=$5 WHERE id=$6 RETURNING *;",
+    [post.title, post.body, post.path, post.resumo, id]
   );
   return result.rows[0];
 };

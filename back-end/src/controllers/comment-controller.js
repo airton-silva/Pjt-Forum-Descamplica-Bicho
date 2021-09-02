@@ -18,6 +18,10 @@ exports.getByName = async (req, res) => {
   res.json(await commentService.getByName(req.query.name));
 };
 
+exports.getContCommentByIdPost = async (req, res) => {
+  res.json(await commentService.getContCommentByIdPost(req.params.id));
+};
+
 exports.post = async (req, res) => {
   res.json(
     await commentService.add(new Comment(req.body.name, req.body.body,

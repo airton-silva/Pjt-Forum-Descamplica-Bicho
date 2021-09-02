@@ -52,7 +52,17 @@
                       
                         <div class="col-md-1">
                             <a href="#  " title="Link do GitHub" class="forum-index-article-top">
-                                <img class="img-circle forum-index-article-user avatar" src="https://gravatar.com/avatar/7e858aacc566834a2faf77936eadca07.jpg?s=150&amp;d=mm&amp;r=g" alt="por ">
+                              <div v-if="post.image">
+                                <img class="img-circle forum-index-article-user avatar" :src="'http://localhost:3000'+post.image" alt="por " 
+                                  style="height:70px; border-radius:50%;">
+                              </div>
+                              <div v-else>
+                                <img class="img-circle forum-index-article-user avatar" 
+                                  src="https://gravatar.com/avatar/7e858aacc566834a2faf77936eadca07.jpg?s=150&amp;d=mm&amp;r=g" alt="por " 
+                                  style="height:70px; border-radius:50%;"
+                                >
+                              </div>
+
                             </a>    
                         </div>
 
@@ -62,10 +72,10 @@
                             
                         </div>
                         <div class="col-md-2 offset-md-1">
-                            <a href="#" class="text-success">
-                                 <h4 class="text-center text-success"><i class="fas fa-check"></i>4</h4>
-                                <p class="text-center text-success"> Respostas </p>
-                            </a>
+                            <!-- <a class="text-success" >
+                                 <h4 class="text-center text-success"><i class="fas fa-check"></i></h4>
+                                <p class="text-center text-success"> Comentários </p>
+                            </a> -->
                         </div>
 
                         <br>                        
@@ -78,10 +88,6 @@
                         </div>
                         <div class="col-md-3"><strong>Atualizado em:</strong>  {{post.updated_at}}</div>
                         <div class="col-md-2 ">
-                            <!-- <a href="#" class="text-success">
-                                 <h4 class="text-center text-success"><i class="fas fa-check"></i>4</h4>
-                                <p class="text-center text-success"> Respostas </p>
-                            </a> -->
                           <router-link :to="'/detail-post/'+post.id" class="btn btn-info btn-sm">Detalhes</router-link>
                         </div>
                         <hr>
@@ -104,23 +110,20 @@
 </template>
 
 <script>
-import axios from 'axios'
+import PostDataService from "../services/PostDataService";
+import CommentDataService from "../services/CommentDataService";
 
 export default {
-  name: 'Posts',
+  name: 'ListPost',
   props: {
     msg: String
   },
 
-  created(){
-    this.getAllPosts()    
-  },
-  
   data () {
     return {
-      uriBase : 'http://localhost:3000/posts/',
       posts: [],
       search: null,
+      contComment: null,
       post: {
         id : null,
         title: '',
@@ -134,12 +137,18 @@ export default {
     } 
   },
 
-    methods: {
+  created(){
+    this.getAllPosts(),
+    this.getCountComment(this.post.id) 
+  },
+
+  methods: {
       getAllPosts () {
-          axios.get(this.uriBase)
+          PostDataService.getAll()
             .then(result =>{
                 this.posts = result.data
                 console.log(this.posts)
+                //this.getCountComment(this.posts.post_id)
             })           
  
       },
@@ -149,7 +158,7 @@ export default {
         if(this.search == null){
           this.created()
         }
-        axios.get(this.uriBase + "search?title=" + this.search)
+        PostDataService.getByTitle(this.search)
           .then((result) =>{
             this.posts = result.data
         })
@@ -163,10 +172,20 @@ export default {
 
       formData(data){
         return data.moment(data, 'YYYY-MM-DD').format('DD-MM-YYYY')
+      },
+
+      getCountComment(id){
+        CommentDataService.contComment(id)
+          .then((result) =>{
+            this.contComment = result.data
+            console.log(this.contComment)
+        })
       }
 
-
-
   },
+  //  mounted(){
+  //    this.getCountComment(this.post.id);
+  //  }
+
 }
 </script>

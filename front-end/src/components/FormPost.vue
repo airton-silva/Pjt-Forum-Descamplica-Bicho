@@ -35,10 +35,18 @@
                     <textarea class="form-control" rows="5" aria-label="With textarea" v-model="post.body"></textarea>
                 </div>
             </div><br>
-
             <div class="col-md-6 offset-3">
-                <div class="d-flex mt-3 login_container">
-                    <button type="submit" name="salvar" class="btn login_btn" @click.prevent=" salvar()">Salvar</button>
+              <div class="form-group">
+                  <label for="exampleFormControlFile1">Upload de Imagem</label>
+                  <input type="file" ref="image" class="form-control-file" name="image">
+              </div>
+            </div>
+            <div class="col-md-6 offset-3">
+                <div class="d-flex mt-3 login_container" v-if="post.id">
+                    <button type="submit" name="salvar" class="btn btn-primary" @click.prevent=" updatePost()">Salvar</button>
+                </div>
+                <div class="d-flex mt-3 login_container" v-else>
+                    <button type="submit" name="salvar" class="btn btn-primary" @click.prevent=" salvar()">Salvar</button>
                 </div>
             </div>  
 
@@ -49,20 +57,23 @@
 </template>
 
 <script>
-import axios from 'axios'
+import PostDataService from "../services/PostDataService";
 
 export default {
   name: 'formPost',
   props: {
-    msg: String
+    id:{
+        type:String,
+        default:null
+    }
   }, 
 
   data() {
     return {
-      uriBase : 'http://127.0.0.1:3000/posts/',
       errors: [],
+      operacao:'',
       post: {
-        id: null,
+        id: this.id,
         title: '',
         body: '',
         image: null, 
@@ -70,7 +81,9 @@ export default {
         created_at: ''
 
       }, 
+      file:'',
       user: localStorage.getItem('dadosUserApp')
+
 
     }
 
@@ -90,35 +103,100 @@ export default {
           
           
         }
-        //console.log(parametros)
+            let json = JSON.stringify(parametros)
+            this.file = this.$refs.image.files[0];
+            let form = new FormData();
+            form.append("post", json);
+            form.append("image", this.file );
+            console.log(form.getAll("image"));
+            console.log(form.getAll("post"));
 
-        axios.post(this.uriBase, parametros)
-        .then(response =>{
-            this.post= response.data    
-            console.log(this.post)
-        }).then(
-           alert("Post cadastrado com sucesso"), 
+        PostDataService.create(form)
+          .then(response =>{
+              var result = response.data
+              if(!result.erros){
+                alert("Post cadastrado com sucesso"),
+                this.$router.push("/posts") 
 
-        )
-       
+              }
+              else{
+                alert("Verifique os erros no console"+result.erros.id)
+                console.log(result)
 
+              }
+          })
+   
+      },  
+
+
+      updatePost(){
+        this.user = JSON.parse(this.user)  
+        let parametros = { 
+          title: this.post.title,
+          body: this.post.body,
+          user_id: this.user.id,
+          updated_at: this.formatData(), 
+          image: this.post.image,
+          resumo: this.post.resumo,
           
           
+        }
+            let json = JSON.stringify(parametros)
+            this.file = this.$refs.image.files[0];
+            let form = new FormData();
+            form.append("post", json);
+            form.append("image", this.file );
+            console.log(form.getAll("image"));
+            console.log(form.getAll("post"));
+
+        PostDataService.update(this.user.id,form)
+          .then(response =>{
+              var result = response.data
+              if(!result.erros){
+                alert("Post atualizado com sucesso"),
+                this.$router.push("/posts") 
+
+              }
+              else{
+                alert("Verifique os erros no console"+result.erros.id)
+                console.log(result)
+
+              }
+          })
+   
       },  
 
       salvar(){
         //var v = this.checkValidate()
-        if(!this.checkValidate()){
-          this.checkValidate()
-          //alert("validou")
-        }else{
-          //alert("salvando..")
-          this.addpost()
-          this.post.title =''
-          this.post.body =''
-          this.post.resumo =''
-        }
+        
+          if(!this.checkValidate()){
+            this.checkValidate()
+          }else{
+            this.addpost()
+            this.post.title ='';
+            this.post.body =''
+            this.post.resumo =''
+          }
+       
 
+
+      },
+
+      novoForm() {
+        this.operacao = 'criar';
+        this.user.title = '';
+        this.user.body= '';
+        this.user.image= ''; 
+        this.user.resumo='';
+       
+      },
+
+      editForm(user) {
+        this.operacao = 'editar';
+        this.user.title = user.title;
+        this.user.body= user.body;
+        this.user.image= user.image; 
+        this.user.resumo=user.resumo;
       },
 
       formatData(){ 
@@ -149,7 +227,22 @@ export default {
             //e.preventDefault();
       },
 
+      getPostById(){
+        PostDataService.get(this.id)
+          .then((result) =>{
+            this.post = result.data
+            console.log(this.post)
+            this.quebraString(this.post);
+        })
+    },
 
+
+  },
+
+  mounted() {
+    this.message = '';
+    this.getPostById();
+    console.log(this.user)
   }
 
 

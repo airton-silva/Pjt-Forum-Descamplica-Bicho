@@ -21,6 +21,10 @@ class CommentService {
     return commentRepo.findByName(name);
   }
 
+  getContCommentByIdPost(post_id) {
+    return commentRepo.getContCommentByIdPost(post_id);
+  }  
+
   update(id, comment) {
     return commentRepo.update(id, comment);
   }
